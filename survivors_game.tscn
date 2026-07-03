@@ -1,23 +1,39 @@
 [gd_scene format=3 uid="uid://swcb8q32cvqi"]
 
+[ext_resource type="Script" uid="uid://dlioxh6uq04sj" path="res://survivors_game.gd" id="1_l26od"]
 [ext_resource type="PackedScene" uid="uid://c1sx7bic4uhdj" path="res://player.tscn" id="1_y3pti"]
 [ext_resource type="PackedScene" uid="uid://dq3r015sr1uql" path="res://pine_tree.tscn" id="2_l26od"]
-[ext_resource type="PackedScene" uid="uid://y38gte5o0xf8" path="res://mob.tscn" id="3_l26od"]
+
+[sub_resource type="Curve2D" id="Curve2D_qqaft"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -119, -131, 0, 0, 0, 0, 2142, -112, 0, 0, 0, 0, 2181, 1305, 0, 0, 0, 0, -126, 1316, 0, 0, 0, 0, -119, -131)
+}
+point_count = 5
 
 [node name="Game" type="Node2D" unique_id=679047954]
 y_sort_enabled = true
+script = ExtResource("1_l26od")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=393242427]
 layer = -5
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=730359245]
-offset_left = 4.0
-offset_top = 10.0
-offset_right = 1894.0
-offset_bottom = 1073.0
+offset_left = 36.0
+offset_top = 42.0
+offset_right = 1950.0
+offset_bottom = 1118.0
 
 [node name="Player" parent="." unique_id=1348636586 instance=ExtResource("1_y3pti")]
-position = Vector2(874, 147)
+position = Vector2(995, 581)
+
+[node name="Path2D" type="Path2D" parent="Player" unique_id=422632675]
+position = Vector2(-995, -581)
+curve = SubResource("Curve2D_qqaft")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D" unique_id=1482296832]
+unique_name_in_owner = true
+position = Vector2(-119, -131)
+rotation = 0.008403163
 
 [node name="pine_tree" parent="." unique_id=2066611745 instance=ExtResource("2_l26od")]
 position = Vector2(908, 483)
@@ -43,14 +59,8 @@ position = Vector2(1473, 598)
 [node name="pine_tree8" parent="." unique_id=1708189375 instance=ExtResource("2_l26od")]
 position = Vector2(1299, 587)
 
-[node name="mob" parent="." unique_id=538342233 instance=ExtResource("3_l26od")]
-position = Vector2(824, 742)
+[node name="Timer" type="Timer" parent="." unique_id=77900078]
+wait_time = 0.3
+autostart = true
 
-[node name="mob2" parent="." unique_id=1085160877 instance=ExtResource("3_l26od")]
-position = Vector2(273, 870)
-
-[node name="mob3" parent="." unique_id=898929970 instance=ExtResource("3_l26od")]
-position = Vector2(339, 472)
-
-[node name="mob4" parent="." unique_id=1187132482 instance=ExtResource("3_l26od")]
-position = Vector2(1282, 988)
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

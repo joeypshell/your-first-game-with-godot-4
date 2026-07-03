@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://coon1w77o334i" path="res://pistol/pistol.png" id="1_vk1bi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_065na"]
-radius = 1090.1937
+radius = 591.0077
 
 [node name="Gun" type="Area2D" unique_id=1780892630]
 collision_layer = 0
@@ -27,7 +27,7 @@ unique_name_in_owner = true
 position = Vector2(26, -11)
 
 [node name="Timer" type="Timer" parent="." unique_id=563860522]
-wait_time = 0.287
+wait_time = 0.129
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

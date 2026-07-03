@@ -11,6 +11,23 @@ radius = 32.0
 script/source = "extends CollisionShape2D
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_r3y22"]
+radius = 33.01515
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_065na"]
+bg_color = Color(0.15294118, 0.16862746, 0.1882353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3y22"]
+bg_color = Color(0.3882353, 0.8, 0.37254903, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="Player" type="CharacterBody2D" unique_id=1348636586]
 script = ExtResource("2_onrkg")
 
@@ -24,3 +41,24 @@ script = SubResource("GDScript_onrkg")
 
 [node name="Gun" parent="." unique_id=1780892630 instance=ExtResource("3_i3pqv")]
 position = Vector2(-1, -35)
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1804775252]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=856200266]
+shape = SubResource("CircleShape2D_r3y22")
+debug_color = Color(0.92119426, 0.2201151, 0.44672298, 0.41960785)
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1314132861]
+unique_name_in_owner = true
+offset_left = -94.0
+offset_top = -131.0
+offset_right = 94.0
+offset_bottom = -108.0
+theme_override_styles/background = SubResource("StyleBoxFlat_065na")
+theme_override_styles/fill = SubResource("StyleBoxFlat_r3y22")
+value = 100.0
+rounded = true
+show_percentage = false
