@@ -13,6 +13,7 @@ exports/
 *.arm32
 *.arm64
 *.pck
+!docs/*.pck
 *.zip
 
 # C# / Mono build output
