@@ -27,7 +27,7 @@ func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-func _gui_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not visible:
 		return
 
@@ -77,6 +77,7 @@ func _is_touch_device() -> bool:
 	return DisplayServer.is_touchscreen_available() \
 		or OS.has_feature("android") \
 		or OS.has_feature("ios") \
+		or OS.has_feature("web") \
 		or OS.has_feature("web_android") \
 		or OS.has_feature("web_ios")
 
