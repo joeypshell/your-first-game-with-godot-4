@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - docs/**
-      - .github/workflows/pages.yml
   workflow_dispatch:
 
 permissions:
@@ -18,6 +15,13 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  GODOT_VERSION: "4.7"
+  GODOT_STATUS: stable
+  GODOT_RELEASE: 4.7-stable
+  EXPORT_PRESET: Web
+  EXPORT_DIR: build/web
+
 jobs:
   deploy:
     environment:
@@ -28,13 +32,64 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Godot
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          godot_zip="$RUNNER_TEMP/godot.zip"
+          godot_dir="$RUNNER_TEMP/godot"
+          godot_bin="$godot_dir/Godot_v${GODOT_RELEASE}_linux.x86_64"
+          godot_url="https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_linux.x86_64.zip"
+
+          curl --fail --location --retry 3 --output "$godot_zip" "$godot_url"
+          mkdir -p "$godot_dir"
+          unzip -q "$godot_zip" -d "$godot_dir"
+          chmod +x "$godot_bin"
+
+          echo "$godot_dir" >> "$GITHUB_PATH"
+          echo "GODOT_BIN=$godot_bin" >> "$GITHUB_ENV"
+          "$godot_bin" --version
+
+      - name: Install Godot export templates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          templates_zip="$RUNNER_TEMP/godot_export_templates.tpz"
+          templates_extract="$RUNNER_TEMP/godot_export_templates"
+          templates_dir="$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.${GODOT_STATUS}"
+          templates_url="https://github.com/godotengine/godot/releases/download/${GODOT_RELEASE}/Godot_v${GODOT_RELEASE}_export_templates.tpz"
+
+          curl --fail --location --retry 3 --output "$templates_zip" "$templates_url"
+          mkdir -p "$templates_extract" "$templates_dir"
+          unzip -q "$templates_zip" -d "$templates_extract"
+          cp -R "$templates_extract/templates/." "$templates_dir/"
+          ls -la "$templates_dir"
+
+      - name: Export web build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          rm -rf "$EXPORT_DIR"
+          mkdir -p "$EXPORT_DIR"
+
+          "$GODOT_BIN" --headless --path "$GITHUB_WORKSPACE" --import --quit
+          "$GODOT_BIN" --headless --path "$GITHUB_WORKSPACE" --export-release "$EXPORT_PRESET" "$EXPORT_DIR/index.html"
+
+          touch "$EXPORT_DIR/.nojekyll"
+          test -f "$EXPORT_DIR/index.html"
+          test -f "$EXPORT_DIR/index.pck"
+          test -f "$EXPORT_DIR/index.wasm"
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
+          path: ${{ env.EXPORT_DIR }}
 
       - name: Deploy to GitHub Pages
         id: deployment
