@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://characters/mecha/mecha.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bnru1eoqialcq" path="res://characters/mecha/frames/mecha_idle_01.png" id="2_idle01"]
+[ext_resource type="Texture2D" uid="uid://1o4dpr8obl5e" path="res://characters/mecha/frames/mecha_idle_02.png" id="3_idle02"]
+[ext_resource type="Texture2D" uid="uid://bfno2lbbqxm1j" path="res://characters/mecha/frames/mecha_walk_01.png" id="4_walk01"]
+[ext_resource type="Texture2D" uid="uid://cg6nr0616hxrq" path="res://characters/mecha/frames/mecha_walk_02.png" id="5_walk02"]
+[ext_resource type="Texture2D" uid="uid://bpjdwtxoklsam" path="res://characters/mecha/frames/mecha_walk_03.png" id="6_walk03"]
+[ext_resource type="Texture2D" uid="uid://bfxr4tgwgo14l" path="res://characters/mecha/frames/mecha_walk_04.png" id="7_walk04"]
+[ext_resource type="Texture2D" uid="uid://dwfdoiiq53ipq" path="res://characters/mecha/frames/mecha_aim_left.png" id="8_aimleft"]
+[ext_resource type="Texture2D" uid="uid://bbcj0s0s23p00" path="res://characters/mecha/frames/mecha_aim_right.png" id="9_aimright"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mecha"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_idle01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_idle02")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_walk01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_walk02")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_walk03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_walk04")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_aimleft")
+}],
+"loop": false,
+"name": &"aim_left",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_aimright")
+}],
+"loop": false,
+"name": &"aim_right",
+"speed": 6.0
+}]
+
+[node name="Mecha" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -36)
+scale = Vector2(0.45, 0.45)
+sprite_frames = SubResource("SpriteFrames_mecha")
+animation = &"idle"
+autoplay = "idle"

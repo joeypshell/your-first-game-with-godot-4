@@ -15,7 +15,11 @@ func spawn_mob():
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)
 	
-
+func _ready():
+	update_tree_chunks()
+	
+func _process(delta: float) -> void:
+	update_tree_chunks()
 
 func _on_timer_timeout() -> void:
 	spawn_mob()

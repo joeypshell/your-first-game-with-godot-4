@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c1sx7bic4uhdj"]
 
-[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="1_4flbx"]
+[ext_resource type="PackedScene" path="res://characters/mecha/mecha.tscn" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://yh2ao5or56lq" path="res://player.gd" id="2_onrkg"]
 [ext_resource type="PackedScene" uid="uid://du5i8r7jdycua" path="res://gun.tscn" id="3_i3pqv"]
 
@@ -40,7 +40,8 @@ script = SubResource("GDScript_onrkg")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1737773335]
 
 [node name="Gun" parent="." unique_id=1780892630 instance=ExtResource("3_i3pqv")]
-position = Vector2(-1, -35)
+position = Vector2(0, -35)
+scale = Vector2(0.96000236, 1)
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1804775252]
 unique_name_in_owner = true
