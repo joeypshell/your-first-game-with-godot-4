@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dlioxh6uq04sj" path="res://survivors_game.gd" id="1_l26od"]
 [ext_resource type="PackedScene" uid="uid://c1sx7bic4uhdj" path="res://player.tscn" id="1_y3pti"]
-[ext_resource type="PackedScene" uid="uid://dq3r015sr1uql" path="res://pine_tree.tscn" id="2_l26od"]
 [ext_resource type="PackedScene" path="res://mobile_controls.tscn" id="4_mobile"]
 
 [sub_resource type="Curve2D" id="Curve2D_qqaft"]
@@ -15,14 +14,16 @@ point_count = 5
 y_sort_enabled = true
 script = ExtResource("1_l26od")
 
+[node name="Trees" type="Node2D" parent="." unique_id=1211763696]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=393242427]
 layer = -5
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=730359245]
-offset_left = 36.0
-offset_top = 42.0
-offset_right = 1950.0
-offset_bottom = 1118.0
+offset_left = -1.0
+offset_top = 2.0
+offset_right = 1952.0
+offset_bottom = 1120.0
 
 [node name="Player" parent="." unique_id=1348636586 instance=ExtResource("1_y3pti")]
 position = Vector2(995, 581)
@@ -35,30 +36,6 @@ curve = SubResource("Curve2D_qqaft")
 unique_name_in_owner = true
 position = Vector2(-119, -131)
 rotation = 0.008403163
-
-[node name="pine_tree" parent="." unique_id=2066611745 instance=ExtResource("2_l26od")]
-position = Vector2(908, 483)
-
-[node name="pine_tree2" parent="." unique_id=1367731760 instance=ExtResource("2_l26od")]
-position = Vector2(350, 126)
-
-[node name="pine_tree3" parent="." unique_id=1550168291 instance=ExtResource("2_l26od")]
-position = Vector2(511, 610)
-
-[node name="pine_tree4" parent="." unique_id=1345394644 instance=ExtResource("2_l26od")]
-position = Vector2(1373, 650)
-
-[node name="pine_tree5" parent="." unique_id=2093332895 instance=ExtResource("2_l26od")]
-position = Vector2(1270, 341)
-
-[node name="pine_tree6" parent="." unique_id=1488868571 instance=ExtResource("2_l26od")]
-position = Vector2(604, 365)
-
-[node name="pine_tree7" parent="." unique_id=1048562469 instance=ExtResource("2_l26od")]
-position = Vector2(1473, 598)
-
-[node name="pine_tree8" parent="." unique_id=1708189375 instance=ExtResource("2_l26od")]
-position = Vector2(1299, 587)
 
 [node name="Timer" type="Timer" parent="." unique_id=77900078]
 wait_time = 0.3
@@ -88,7 +65,7 @@ text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MobileControls" parent="." instance=ExtResource("4_mobile")]
+[node name="MobileControls" parent="." unique_id=1428766994 instance=ExtResource("4_mobile")]
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
