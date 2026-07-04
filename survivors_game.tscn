@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dlioxh6uq04sj" path="res://survivors_game.gd" id="1_l26od"]
 [ext_resource type="PackedScene" uid="uid://c1sx7bic4uhdj" path="res://player.tscn" id="1_y3pti"]
 [ext_resource type="PackedScene" uid="uid://dq3r015sr1uql" path="res://pine_tree.tscn" id="2_l26od"]
+[ext_resource type="PackedScene" path="res://mobile_controls.tscn" id="4_mobile"]
 
 [sub_resource type="Curve2D" id="Curve2D_qqaft"]
 _data = {
@@ -86,6 +87,8 @@ theme_override_font_sizes/font_size = 139
 text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MobileControls" parent="." instance=ExtResource("4_mobile")]
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
